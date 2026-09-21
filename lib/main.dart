@@ -38,6 +38,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
 
   Key _streamKey = UniqueKey();
   void _runSyncProcess() {
+    //Tujuan: Membuktikan bahwa proses synchronous memblokir Main UI Thread
+    //sehingga aplikasi mengalami freeze
     setState(() {
       _statusSync = "Proses Sync Dimulai...";
     });
@@ -51,6 +53,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
 
   Future<void> _runAsyncProcess() async {
     setState(() {
+      //Tujuan: Membuktikan bahwa async/await menyerahkan Long Task ke
+      //Background, sehingga UI tetap smooth
       _isLoadingAsync = true;
       _statusAsync = "Proses Async Dimulai...";
     });
@@ -64,6 +68,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
   }
 
   Stream<int> _generateStreamData() async* {
+    //Mengirimkan aliran data secara realtime menggunakan generator
+    //async* dan yield
     for (int i = 1; i <= 5; i++) {
       await Future.delayed(const Duration(seconds: 1));
       yield i;
